@@ -1,5 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import MenuSection from './components/MenuSection.vue';
 </script>
 
 <template>
@@ -13,6 +14,8 @@ import { RouterLink, RouterView } from 'vue-router'
       </nav>
     </div>
   </header>
+
+  <MenuSection style="margin-bottom:20px"/>
 
   <RouterView />
 </template>

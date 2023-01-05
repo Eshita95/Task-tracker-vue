@@ -1,8 +1,22 @@
 <template >
-    Todos
     <button @click="addTodo">Add Todo</button>
+    <h1>All</h1>
     <ul>
         <SingleTodo v-for="todo in todos" 
+        :key="todo.id" 
+        :todo="todo" />
+    </ul>
+
+    <h1>Pending</h1>
+    <ul>
+        <SingleTodo v-for="todo in pending" 
+        :key="todo.id" 
+        :todo="todo" />
+    </ul>
+
+    <h1>Completed</h1>
+    <ul>
+        <SingleTodo v-for="todo in completed" 
         :key="todo.id" 
         :todo="todo" />
     </ul>
@@ -22,7 +36,12 @@ export default {
         return {};
     },
     computed: {
-        ...mapState(useTodoStore, ["todos"]),
+        ...mapState(useTodoStore, {
+            todos: "allTodos",
+            pending: "pendingTodos",
+            completed: "completedTodos",
+            
+        }),
     },
     methods: {
         addTodo() {

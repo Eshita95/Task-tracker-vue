@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-import { transformWithEsbuild } from "vite";
 
 export const useTodoStore = defineStore('TodoStore', {
     // state
@@ -23,9 +22,27 @@ export const useTodoStore = defineStore('TodoStore', {
         },
 
         deleteTodo(id) {
-            this.todos = this.todos.filter(todo => todo.id === id);
+            this.todos = this.todos.filter(todo => todo.id !== id);
+        },
+
+        changeTodosStatus(id) {
+            this.todos = this.todos.map(todo => {
+                if (todo.id === id) {
+                    todo.completed = !todo.completed;
+                }
+                return todo;
+            })
         }
-    }
+    },
     // getters
+
+    getters: {
+        allTodos: (state) => state.todos,
+        pendingTodos: (state) => state.todos.filter(todo => !todo.completed),
+        completedTodos: (state) => state.todos.filter(todo => todo.completed),
+        allTodoCount: (state) => state.todos.length,
+        pendingTodosCount: (state) => state.todos.filter(todo => !todo.completed).length,
+        completedTodosCount: (state) => state.todos.filter(todo => todo.completed).length,
+    }
 
 });

@@ -1,6 +1,10 @@
 <template lang="">
    
-        <li>{{ todo.title }} <button @click="handleDelete(todo.id)">Delete</button></li>
+        <li>
+            {{ todo.title }} 
+            <button @click="handleDelete()">Delete</button>
+            <button @click="handleChangeStatus">{{todo.completed? 'Make Pending': 'Make Completed'}}</button>
+        </li>
     
 </template>
 
@@ -17,7 +21,10 @@ export default {
 
     methods: {
         handleDelete(id){
-            useTodoStore().deleteTodo(id);
+            useTodoStore().deleteTodo(this.todo.id);
+        },
+        handleChangeStatus(){
+            useTodoStore().changeTodosStatus(this.todo.id);
         }
     },
 }
